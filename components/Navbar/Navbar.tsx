@@ -65,7 +65,7 @@ const Navbar = () => {
           <div>
             {menu.map((i, index) => {
               return (
-                <div className='my-3'>
+                <div className="my-3" key={index}>
                   <NavbarItem key={index} name={i.name} Icon={i.icon} />
                 </div>
               );
