@@ -9,6 +9,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import Image from 'next/image';
+import { MapPin } from 'lucide-react';
 
 export default function NearestPark() {
         const images = [
@@ -23,7 +24,7 @@ export default function NearestPark() {
 
         ];
   return (
-    <Card>
+    <Card className=" border-none">
       <h2 className=" text-[21px] font-semibold py-2">Parks near me</h2>
       <Carousel
         opts={{
@@ -33,9 +34,9 @@ export default function NearestPark() {
       >
         <CarouselContent>
           {images.map((i, index) => (
-            <CarouselItem key={index} className="basis-1/2 lg:basis-1/5">
+            <CarouselItem key={index} className="basis-1/2 lg:basis-1/6">
               <div className="">
-                <Card className="m-0. p-0">
+                <Card className="m-0 p-0">
                   <CardContent className="flex aspect-square items-center justify-center p-0">
                     <Image
                       src={i}
@@ -45,7 +46,13 @@ export default function NearestPark() {
                       className=" w-full h-full object-cover object-center cursor-pointer"
                     />
                   </CardContent>
-                <p>Kaziranga Narional Park</p>
+                  <div className="px-2 ">
+                    <p className="font-semibold">Kaziranga Narional Park</p>
+                    <div className="flex gap-x-px">
+                      <MapPin className=" w-4 h-4" />
+                      <p className="text-xs">2.8 km away</p>
+                    </div>
+                  </div>
                 </Card>
               </div>
             </CarouselItem>

@@ -1,0 +1,88 @@
+import * as React from 'react';
+
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import Image from 'next/image';
+import { Calendar, Clock, MapPin } from 'lucide-react';
+
+
+export default function TrendingParks() {
+  const images = [
+    'https://wallpapercave.com/wp/wp11440150.jpg',
+    'https://wallpapercave.com/wp/wp5210402.jpg',
+    'https://wallpapercave.com/uwp/uwp4215524.jpeg',
+    'https://wallpapercave.com/wp/wp8366025.jpg',
+    'https://images.pexels.com/photos/547119/pexels-photo-547119.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    'https://getwallpapers.com/wallpaper/full/8/4/4/859240-vertical-wildlife-desktop-backgrounds-1920x1200-photo.jpg',
+    'https://th.bing.com/th/id/OIP.3YD6BYo7QXfw5Y5d_79tGwHaFj?rs=1&pid=ImgDetMain',
+    'https://wallpaperaccess.com/full/156340.jpg',
+  ];
+  return (
+    <Card className="border-none">
+      <h2 className=" text-[21px] font-semibold py-2">
+        Our Trending Tour Parks
+      </h2>
+      <Carousel
+        opts={{
+          align: 'start',
+        }}
+        className="w-full"
+      >
+        <CarouselContent>
+          {images.map((i, index) => (
+            <CarouselItem key={index} className="basis-1/2 lg:basis-1/4">
+              <div className="">
+                <Card className="m-0 p-0">
+                  <CardContent className="items-center justify-center p-0">
+                    <Image
+                      src={i}
+                      width={300}
+                      height={300}
+                      alt="Park Image"
+                      className=" w-full h-44 object-cover object-center cursor-pointer"
+                    />
+                    <div className="px-2">
+                      <div className="flex justify-between py-2">
+                        <div className="flex gap-x-px">
+                          <Calendar className=" w-4 h-4" />
+                          <p className="text-xs">8 Days</p>
+                        </div>
+                        <div className="flex gap-x-px">
+                          <Clock className=" w-4 h-4" />
+                          <p className="text-xs">Open (09 AM to 12:00 PM)</p>
+                        </div>
+                        <div className="flex gap-x-px">
+                          <MapPin className=" w-4 h-4" />
+                          <p className="text-xs">IIT Roorkee</p>
+                        </div>
+                      </div>
+                      <p className=" text-lg font-semibold">
+                        Kaziranga Narional Park
+                      </p>
+                      <div className="flex gap-2">
+                        <p className=" font-semibold">₹1,299</p>
+                        <p className="line-through disabled text-muted-foreground text-sm self-center">
+                          ₹2,599
+                        </p>
+                        <p className=" font-semibold text-lime-500">50% off</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+
+        <CarouselPrevious className="  left-0 bg-transparent border-[0px] h-full w-16 hover:border-[2px] hover:bg-transparent border-white" />
+        <CarouselNext className="right-0 bg-transparent border-[0px] h-full w-16 hover:border-[2px] hover:bg-transparent border-white" />
+      </Carousel>
+    </Card>
+  );
+}
