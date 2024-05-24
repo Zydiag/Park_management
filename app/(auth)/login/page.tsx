@@ -22,7 +22,7 @@ const formSchema = z.object({
   }),
 });
 
-export function ProfileForm() {
+export function page() {
   // ...
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
