@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/carousel';
 import Image from 'next/image';
 import { MapPin } from 'lucide-react';
-
 export default function NearestPark() {
         const images = [
           'https://wallpapercave.com/wp/wp11440150.jpg',
