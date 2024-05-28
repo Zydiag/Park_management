@@ -2,7 +2,7 @@ import { connectDB, sendToken, TryCatch } from '@/lib/features';
 import { User } from '@/models/userModel';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const POST:Function = TryCatch(async (req: NextRequest) => {
+export const POST = TryCatch(async (req: NextRequest) => {
   connectDB();
   const { name, username, password } = await req.json();
   const avatar = {
