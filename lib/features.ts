@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { SignJWT, jwtVerify } from 'jose';
+
 const sendToken = async(user: any, message: string, role:string) => {
   const token = await new SignJWT({ _id: user._id, role })
     .setProtectedHeader({ alg: 'HS256' })
@@ -17,17 +17,6 @@ const sendToken = async(user: any, message: string, role:string) => {
   return NextResponse.json({ success: true, message });
 };
 
-const connectDB = () => {
-  const uri = process.env.DATABASE_URL;
-  mongoose
-    .connect(uri as string, { dbName: 'park' })
-    .then((data) => {
-      console.log(`Connected to DB: ${data.connection.host}`);
-    })
-    .catch((err) => {
-      throw err;
-    });
-};
 const TryCatch = (passedFun: Function) => async (req: NextRequest) => {
   try {
     return await passedFun(req);
@@ -55,4 +44,4 @@ export async function verifyJwtToken(token:string) {
     return null;
   }
 }
-export { sendToken, connectDB, TryCatch };
+export { sendToken, TryCatch };

@@ -1,10 +1,10 @@
-import { connectDB, sendToken, TryCatch } from '@/lib/features';
+import { sendToken, TryCatch } from '@/lib/features';
+import connectDB from '@/lib/mongoDB';
 import { Admin } from '@/models/adminModel';
-import { User } from '@/models/userModel';
 import { NextRequest } from 'next/server';
 
 export const POST = TryCatch(async (req: NextRequest) => {
-  connectDB();
+  await connectDB();
   const { name, username, password } = await req.json();
   const avatar = {
     public_id: 'ssss',

@@ -1,9 +1,6 @@
 import handleError from '@/lib/helper';
-import {
-  body as Body,
-  validationResult,
-} from 'express-validator';
-import { NextRequest, NextResponse } from 'next/server';
+import * as yup from 'yup';
+import { NextRequest } from 'next/server';
 
 type ValidateMiddleware = (
   req: any,
@@ -17,42 +14,41 @@ export const validateHandler: ValidateMiddleware = async (
   validations
 ) => {
   const body = await parseBody(req);
-  const reqWithBody = { ...req, body };
-  for (let validation of validations) {
-    const result = await validation.run(reqWithBody);
-    if (result.errors.length) break;
+  try {
+    await validations.validate(body, {
+      abortEarly: false,
+    });
+  } catch (error:any) {
+    const errMsg = error.errors
+      .map((e:any) => e)
+      .join(', ');
+      return handleError(errMsg, 400);
   }
-  const errors = validationResult(reqWithBody);
-  const errMsg = errors
-    .array()
-    .map((e) => e.msg)
-    .join(', ');
-  if (errors.isEmpty()) return next();
-  else return handleError(errMsg, 400);
+    return next();
 };
 export const parseBody = async (req: NextRequest) => {
   const body = await req.json();
   return body;
 };
 export const loginValidator: Middleware = async (req, next) => {
-  const validations = [
-    Body('password', 'Password not found').notEmpty(),
-    Body('username', 'Username not found').notEmpty(),
-  ];
-  return validateHandler(req, next, validations);
+  const schema = yup.object().shape({
+    username: yup.string().required(),
+    password: yup.string().required(),
+  });
+  return validateHandler(req, next, schema);
 };
 export const registerValidator: Middleware = async (req, next) => {
-  const validations = [
-    Body('password', 'Password not found').notEmpty(),
-    Body('username', 'Username not found').notEmpty(),
-    Body('name', 'Name not found').notEmpty(),
-  ];
-  return validateHandler(req, next, validations);
+  const schema = yup.object().shape({
+    username: yup.string().required(),
+    password: yup.string().required(),
+    name: yup.string().required(),
+  });
+  return validateHandler(req, next, schema);
 };
 export const addParkValidator: Middleware = async (req, next) => {
-  const validations = [
-    Body('name', 'Name not found').notEmpty(),
-  ];
-  return validateHandler(req, next, validations);
+  const schema = yup.object().shape({
+    name: yup.string().required(),
+  });
+  return validateHandler(req, next, schema);
 };
 
