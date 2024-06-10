@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import * as React from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 
@@ -13,15 +13,14 @@ import {
 import Image from 'next/image';
 
 export default function MainPageSlider() {
-    const images = [
-      'https://wallpapercave.com/wp/wp11440150.jpg',
-      'https://wallpapercave.com/wp/wp5210402.jpg',
-      'https://wallpapercave.com/uwp/uwp4215524.jpeg',
-      'https://wallpapercave.com/wp/wp8366025.jpg',
-      'https://images.pexels.com/photos/547119/pexels-photo-547119.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    ];
-        
-    
+  const images = [
+    'https://wallpapercave.com/wp/wp11440150.jpg',
+    'https://wallpapercave.com/wp/wp5210402.jpg',
+    'https://wallpapercave.com/uwp/uwp4215524.jpeg',
+    'https://wallpapercave.com/wp/wp8366025.jpg',
+    'https://images.pexels.com/photos/547119/pexels-photo-547119.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  ];
+
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
@@ -36,13 +35,15 @@ export default function MainPageSlider() {
       <CarouselContent>
         {images.map((i, index) => (
           <CarouselItem key={index}>
-            <div className="">
-              <img
-                src={i}
-                alt="Park Image"
-                className=" w-screen h-[300px] md:h-[450px] object-cover object-center"
-              />
-            </div>
+            <Card>
+              <CardContent>
+                <img
+                  src={i}
+                  alt="Park Image"
+                  className=" w-screen h-[300px] md:h-[450px] object-cover object-center"
+                />
+              </CardContent>
+            </Card>
           </CarouselItem>
         ))}
       </CarouselContent>
