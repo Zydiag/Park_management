@@ -46,25 +46,7 @@ export const POST = TryCatch(async (req: NextRequest) => {
   //     `park/${generatedId}/banner_photo`
   //   );
   // }
-  const yy=[
-    {
-      url: 'http://res.cloudinary.com/ddthqgdk3/image/upload/v1718102329/park/666829371e1e9524b3d15d90/cover_photo/lc0tknrxqpnu50p8m2ob.webp',
-      public_id:
-        'park/666829371e1e9524b3d15d90/cover_photo/lc0tknrxqpnu50p8m2ob',
-    },
-  ]
-  const xx =[
-    {
-      url: 'http://res.cloudinary.com/ddthqgdk3/image/upload/v1718102330/park/666829371e1e9524b3d15d90/banner_photo/espcwm39i1tejksy5tti.jpg',
-      public_id:
-        'park/666829371e1e9524b3d15d90/banner_photo/espcwm39i1tejksy5tti',
-    },
-    {
-      url: 'http://res.cloudinary.com/ddthqgdk3/image/upload/v1718102331/park/666829371e1e9524b3d15d90/banner_photo/jkird5alakje1rdp5lbl.jpg',
-      public_id:
-        'park/666829371e1e9524b3d15d90/banner_photo/jkird5alakje1rdp5lbl',
-    }
-  ];
+
   console.log(cover_photo);
   console.log(banner_photo);
 
@@ -84,12 +66,10 @@ export const POST = TryCatch(async (req: NextRequest) => {
       type: 'Point',
       coordinates: location_number,
     },
-    banner_photo: xx,
-    cover_photo: yy.length > 0 ? yy[0] : {},
+    banner_photo: banner_photo.length>0?banner_photo:[],
+    cover_photo: cover_photo.length > 0 ? cover_photo[0] : {},
     park_added_by: user.id,
   });
-  // const imageData = await uploadFilesOnCloudinary(file, 'park/banner');
-
   return NextResponse.json({
     status: true,
     message: 'Park added successfully',
