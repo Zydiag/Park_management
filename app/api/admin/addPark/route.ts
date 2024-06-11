@@ -34,19 +34,18 @@ export const POST = TryCatch(async (req: NextRequest) => {
   let banner_photo: image[] = [];
   let cover_photo: image[] = [];
   const generatedId = new mongoose.Types.ObjectId();
-  // if ([cover_photo_file].length > 0) {
-  //   cover_photo = await uploadFilesOnCloudinary(
-  //     [cover_photo_file],
-  //     `park/${generatedId}/cover_photo`
-  //   );
-  // }
-  // if (banner_photo_file.length > 0) {
-  //   banner_photo = await uploadFilesOnCloudinary(
-  //     banner_photo_file,
-  //     `park/${generatedId}/banner_photo`
-  //   );
-  // }
-
+  if ([cover_photo_file].length > 0) {
+    cover_photo = await uploadFilesOnCloudinary(
+      [cover_photo_file],
+      `park/${generatedId}/cover_photo`
+    );
+  }
+  if (banner_photo_file.length > 0) {
+    banner_photo = await uploadFilesOnCloudinary(
+      banner_photo_file,
+      `park/${generatedId}/banner_photo`
+    );
+  }
   console.log(cover_photo);
   console.log(banner_photo);
 
