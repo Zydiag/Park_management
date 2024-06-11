@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from 'mongoose';
+import mongoose, { Schema, Types, model } from 'mongoose';
 import { hash } from 'bcrypt';
 const schema = new Schema(
   {
@@ -26,6 +26,10 @@ const schema = new Schema(
         required: true,
       },
     },
+    park_added:{
+      type:Types.ObjectId,
+      ref:"Park"
+    }
   },
   {
     timestamps: true,

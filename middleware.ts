@@ -5,8 +5,9 @@ import { addParkValidator, loginValidator, registerValidator } from './middlewar
 import { isAdminAuthenticated } from './middleware/isAdminAuthenticated';
 
 export default (req: NextRequest) => {
+  const res = NextResponse.next();
   const finalHandler = () => {
-    // NextResponse.json({ void: true });
+    return res;
   };
   const path = req.nextUrl.pathname;
   if (path.startsWith('/api')) {
@@ -18,8 +19,8 @@ export default (req: NextRequest) => {
         const middleware = [registerValidator];
         return runMiddlewares(middleware)(req, finalHandler);
       } else if (path.startsWith('/api/admin/addPark')) {
-        const middleware = [isAdminAuthenticated, addParkValidator];
-        return runMiddlewares(middleware)(req, finalHandler);
+        const middleware = [isAdminAuthenticated];
+        return runMiddlewares(middleware)(req, finalHandler,res);
       }
     }
     if (path.startsWith('/api/guest/login')) {

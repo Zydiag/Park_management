@@ -1,6 +1,7 @@
 import handleError from '@/lib/helper';
 import * as yup from 'yup';
 import { NextRequest } from 'next/server';
+import multer from 'multer';
 
 type ValidateMiddleware = (
   req: any,

@@ -1,15 +1,15 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { SignJWT, jwtVerify } from 'jose';
+import { SignJWT, jwtVerify } from 'jose';  
 
-const sendToken = async(user: any, message: string, role:string) => {
+const sendToken = async (user: any, message: string, role: string) => {
   const token = await new SignJWT({ _id: user._id, role })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime('30s')
+    .setExpirationTime('15d')
     .sign(getJwtSecretKey());
   cookies().set('appToken', token, {
-    maxAge: 15 * 24 * 60 * 60 * 1000,
+    maxAge: 15 * 24 * 60 * 60,
     sameSite: 'none',
     httpOnly: true,
     secure: false,
@@ -22,7 +22,7 @@ const TryCatch = (passedFun: Function) => async (req: NextRequest) => {
     return await passedFun(req);
   } catch (err) {
     return NextResponse.json({
-      success:false,
+      success: false,
       status: 404,
       name: (err as Error).name,
       message: (err as Error).message,
@@ -36,7 +36,7 @@ export function getJwtSecretKey() {
   }
   return new TextEncoder().encode(secret);
 }
-export async function verifyJwtToken(token:string) {
+export async function verifyJwtToken(token: string) {
   try {
     const { payload } = await jwtVerify(token, getJwtSecretKey());
     return payload;
@@ -44,4 +44,14 @@ export async function verifyJwtToken(token:string) {
     return null;
   }
 }
+export async function getUserAfterAuth(req: NextRequest) {
+  try {
+    const data = req.headers.get('user') as string;
+    if (!data) throw new Error();
+    return JSON.parse(data);
+  } catch (error) {
+    throw new Error('Unable to get user data through request header');
+  }
+}
+
 export { sendToken, TryCatch };

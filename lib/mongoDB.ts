@@ -2,11 +2,7 @@ import mongoose, { Connection, ConnectOptions } from 'mongoose';
 
 const MONGODB_URI = process.env.DATABASE_URL as string;
 
-if (!MONGODB_URI) {
-  throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local'
-  );
-}
+
 
 interface MongooseGlobal extends NodeJS.Global {
   mongoose: {
@@ -24,6 +20,11 @@ if (!cached) {
 }
 
 async function connectDB(): Promise<Connection> {
+  if (!MONGODB_URI) {
+    throw new Error(
+      'Please define the MONGODB_URI environment variable inside .env.local'
+    );
+  }
   if (cached.conn) {
     return cached.conn;
   }
